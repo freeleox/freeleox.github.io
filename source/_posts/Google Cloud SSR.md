@@ -9,7 +9,8 @@ categories : code
 
 # 谷歌云免费搭建一年SSR服务器
 
-<p style="text-align:right">作者：Leo</h1>
+<p style="text-align:right">作者：Leo</p>
+
 
 想要看看“墙外的世界”的小伙伴，可以考虑部署谷歌云服务器啦~因为谷歌云免费使用一年的政策，相当于免费用了一年稳定的VPN呢。。
 谷歌云赠送300美金金额，流量肯定够那些只用来翻墙或者写博客的小伙伴使用了。
