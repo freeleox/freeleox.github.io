@@ -2,36 +2,31 @@
 # language
 language: en
 # avatar
-avatar: img/assets/cat.png
+avatar: img/assets/cat.png # 头像
 # author
-author: longlongyu
+author: Leo
 # signature
-signature: for me
-# friends
-friends:
-  friendA: //github.com/Longlongyu
-  friendB: //github.com/
-  friendC: //github.com/
+signature: 前进或后退都在我怀里
 # SNS
 social:
-  email: 
-  github: //github.com/
-  weibo: //www.weibo.com
-  facebook: //www.facebook.com
-  twitter: //twitter.com
+  email: freeleox@foxmail.com
+  github: //github.com/freeleox
+  weibo: //weibo.com
+  facebook: //facebook.com
+  twitter: //twitter.com/freeleoxxx
   rss: /atom.xml
 
 # —————————— Site —————————— #
 # title of the site
-SEO_title: Mr.Long's Blog
+SEO_title: Leo Shaw's Blog
 # main title
-main_title: Mr.Long's Blog
+main_title: Leo's Blog
 # subtitle
-subtitle: Welcome to my Blog!
+subtitle: Follow your heart
 # site haeder image
-site_header_image: '/img/intro/index-bg.png'
+site_header_image: '/img/intro/bear-bg.png'
 # post haeder image
-post_header_image:
+post_header_image: '/img/intro/bear-bg.png'
 # about image
 about_header_image: 
 
@@ -95,3 +90,9 @@ stylesheets:
 # scripts loaded in the end of the body
 scripts:
 - /js/main.js?v=2018.7.9
+- /js/love.js?v=2018.7.9
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
