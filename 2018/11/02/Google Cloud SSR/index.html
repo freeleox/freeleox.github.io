@@ -1,0 +1,141 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Leo"><meta name="renderer" content="webkit"><meta name="copyright" content="Leo"><meta name="keywords" content="Leo's Blog"><meta name="description" content="Leo Shaw's Blog, 0511"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>谷歌云免费搭建一年SSR服务器 · Leo Shaw's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><script src="/js/love.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Leo</div><div class="profile-signature">前进或后退都在我怀里</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/bear-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Leo's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">谷歌云免费搭建一年SSR服务器</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2018-11-02</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="code"> code</a></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h1 id="谷歌云免费搭建一年SSR服务器"><a href="#谷歌云免费搭建一年SSR服务器" class="headerlink" title="谷歌云免费搭建一年SSR服务器"></a>谷歌云免费搭建一年SSR服务器</h1><p style="text-align:right">作者：Leo<br><br>想要看看“墙外的世界”的小伙伴，可以考虑部署谷歌云服务器啦~因为谷歌云免费使用一年的政策，相当于免费用了一年稳定的VPN呢。。<br>谷歌云赠送300美金金额，流量肯定够那些只用来翻墙或者写博客的小伙伴使用了。<br><br>## 你需要准备：<br><br>- 一台可以翻墙的电脑。（VPN软件试用流量应该就够了，推荐蓝灯。）<br><br><br><br>- 一张<strong>双币/全币种</strong>信用卡。我使用的是招行信用卡，谷歌云注册的时候，会从你的信用卡收取一美金证明你不是机器人，过后会退还。由于信用卡申请需要一段时间，建议这个提早着手准备。<br><br><br><br>- 一个谷歌账号。建议是你本人使用的。<br><br>## 申请谷歌云服务器<br><br>点击<a href="https://cloud.google.com/free/" target="_blank" rel="noopener">申请试用</a>，填写以下信息：<img src="http://r.photo.store.qq.com/psb?/V11yCWJM1bo1cH/ESJHG3G0inrRQK3Yan8dcF7YTfXyO*Ka.DP95QtBgIQ!/r/dFIBAAAAAAAA" alt="img"><br><br>国家选择中国，同意服务条款，电子邮件看你个人意愿。我貌似勾了是，但是并没有收到邮件。。<br><br><br><br><img src="http://r.photo.store.qq.com/psb?/V11yCWJM1bo1cH/UKOFnMQXL6Uj7NuSGaPNp3YhS57YXZ8RpFXqmC45QSI!/r/dFYBAAAAAAAA" alt="img"><br><br>账号类型选择“<strong>个人</strong>”。个人信息填写完毕之后，掏出你的信用卡！<br><br>月份年份填有效期，验证码填信用卡背面那三位（不要告诉别人）。<br><br>当弹出以下窗口的时候，说明你已经申请成功啦~<br><br><img src="http://r.photo.store.qq.com/psb?/V11yCWJM1bo1cH/u*5pdH.DBpqMA46BtHrJ9baqjMIBEXEcJOG6zN.nGjo!/r/dFIBAAAAAAAA" alt="img"><br><br>关于这几个问题的答案我已经不记得自己填的什么了emmm….大家如实填写吧，或者直接点击开始使用。<br><br>## 创建防火墙规则<br><br>接着就会进入你的控制台，可以浏览熟悉一下。接着在左侧的导航栏往下滑选择<strong>VPC网络</strong>。<br><br>等待几分钟启用Computer Engine。选择<strong>防火墙规则</strong>。<br><br>点击<strong>创建</strong>。<br><br>规则名字自定义，流量方向选择<strong>出站</strong>，目标选<strong>网络中的所有实例</strong>，来源过滤选择<strong>IP地址范围</strong>，并在下方填写<strong>“0.0.0.0/0”</strong>，然后点击创建。<img src="http://m.qpic.cn/psb?/V11yCWJM1bo1cH/LdpQKrZgSqSzVufeXQO*wejvUi7xJASdVGM3Qc4omyE!/b/dDQBAAAAAAAA&amp;bo=rgKuAq4CrgIDCSw!&amp;rf=viewer_4" alt="img"><br><br>再新建一条规则，方向选择<strong>入站</strong>。其他和出站规则一样。<br><br></p><p style="color:red;">再提醒一次，规则有两条，分别为“入站”和“出站”。目标请勾选“网络中的所有实例”。</p>
+
+<h2 id="外部IP地址"><a href="#外部IP地址" class="headerlink" title="外部IP地址"></a>外部IP地址</h2><p>在左侧继续选择<strong>外部IP地址</strong>。</p>
+<p><img src="http://a1.qpic.cn/psb?/V11yCWJM1bo1cH/HjoVFnQHVWzZB97rD8x3DTLD1r9HeqYB2aQuHggIkvs!/b/dFQBAAAAAAAA&amp;ek=1&amp;kp=1&amp;pt=0&amp;bo=4AFUAuABVAIDGTw!&amp;tl=1&amp;vuin=2325356404&amp;tm=1541210400&amp;sce=60-4-3&amp;rf=viewer_4" alt="img"></p>
+<p>创建，名称自定义。区域，选择 <strong>asia-east1</strong>。</p>
+<p><img src="http://m.qpic.cn/psb?/V11yCWJM1bo1cH/MACKpnkhdNwg3U4JpHdybHgt6AabsqdhAusiypSB*Bs!/b/dFMBAAAAAAAA&amp;bo=oQKYAqECmAIDGTw!&amp;rf=viewer_4" alt="img"></p>
+<h2 id="创建VM实例"><a href="#创建VM实例" class="headerlink" title="创建VM实例"></a>创建VM实例</h2><p>回到控制台的首页，左侧的导航栏中选择<strong>Computer Engine</strong> ==&gt; <strong>VM实例</strong>。</p>
+<p><img src="http://m.qpic.cn/psb?/V11yCWJM1bo1cH/Mu7RUjliJZjJ5m4ZrGt7wyqWZzVtaLDbO*8ahECWSfA!/b/dFQBAAAAAAAA&amp;bo=ygNqBMoDagQDCSw!&amp;rf=viewer_4" alt="img"></p>
+<p>创建，机器类型选择<strong>微型0.6 GB 内存</strong> ，区域我选择的是<strong>asia-east1-c</strong>，你也可以选择<strong>asia-east1-a</strong>。</p>
+<p>启动磁盘选择<strong>Ubuntu 16.04 LTS</strong>。</p>
+<p><img src="http://m.qpic.cn/psb?/V11yCWJM1bo1cH/xs20H1Z4PxykLf9D9VW8M1JUhx6QWduP.FdFN77lrGQ!/b/dEcBAAAAAAAA&amp;bo=jgScBI4EnAQDCSw!&amp;rf=viewer_4" alt="img"></p>
+<p>选择后如图所示：</p>
+<p><img src="http://m.qpic.cn/psb?/V11yCWJM1bo1cH/mfdsLOC4Tl4E7*qU*pzjmitnfmeb7*yK2cKT6*eCPNA!/b/dDUBAAAAAAAA&amp;bo=YAK2AWACtgEDCSw!&amp;rf=viewer_4" alt="img"></p>
+<p>往下滑，点开<strong>管理、安全、磁盘、网络、单独租用</strong></p>
+<p>选择<strong>安全</strong>，在这里你可以上传你的ssh密钥文件，如果没有就跳过，选择<strong>网络</strong></p>
+<p><strong>内部IP</strong>选择静态，<strong>外部IP</strong>选择刚刚创建的优质层级，点击完成。</p>
+<h2 id="SSH连接服务器"><a href="#SSH连接服务器" class="headerlink" title="SSH连接服务器"></a>SSH连接服务器</h2><p>等待配置成功后，会显示刚刚新建成功的实例，如图：</p>
+<p><img src="http://m.qpic.cn/psb?/V11yCWJM1bo1cH/S70ojTKywWFGcI64dCNXoMw8fIzlXEkRCeLWAhO2ikM!/b/dFIBAAAAAAAA&amp;bo=zgNmAc4DZgEDCSw!&amp;rf=viewer_4" alt="img"></p>
+<p>点击连接下方的<strong>”SSH“</strong>，会弹出一个新的浏览器窗口。</p>
+<p><img src="http://m.qpic.cn/psb?/V11yCWJM1bo1cH/K.2M1aYZCPtb.INBLKPKwk.WfPVSQV3GnIfAGSuumeI!/b/dFIBAAAAAAAA&amp;bo=bARcAwAAAAADBxU!&amp;rf=viewer_4" alt="img"></p>
+<p>输入<code>sudo su</code>进入root模式，我一直用的是<code>sudo -i</code>。</p>
+<p>输入<code>apt update</code>等待一小会，更新完成后输入<code>apt upgrade</code>，再按照指示输入<code>y</code>，回车。</p>
+<p>依次输入以下代码，回车：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;net.core.default_qdisc=fq&quot; &gt;&gt; /etc/sysctl.conf</span><br><span class="line">echo &quot;net.ipv4.tcp_congestion_control=bbr&quot; &gt;&gt; /etc/sysctl.conf</span><br><span class="line">apt-get update</span><br><span class="line">apt-get install -y python-pip</span><br><span class="line">pip install shadowsocks</span><br></pre></td></tr></table></figure>
+<p>等待完成。</p>
+<p>接下来进入编辑器，输入<code>vim /etc/ss-conf.json</code>，成功后摁下<code>i</code>进入插入模式（这点很重要否则无法编辑），复制以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;server&quot;: &quot;这里填你的外部IP&quot;,</span><br><span class="line">  &quot;server_port&quot;:  8838（这里是端口，默认8838，可自定义，9000~15000之间）,</span><br><span class="line">  &quot;local_address&quot;:  &quot;127.0.0.1&quot;,</span><br><span class="line">  &quot;local_port&quot;: 1080,</span><br><span class="line">  &quot;password&quot;: &quot;这里填你想要的密码&quot;,</span><br><span class="line">  &quot;timeout&quot;:  600,</span><br><span class="line">  &quot;method&quot;: &quot;aes-256-cfb&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更改完后记得把括号及其内容删除，最终结果是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;server&quot;: &quot;xx.xxx.xxx.xxx&quot;,</span><br><span class="line">  &quot;server_port&quot;:  8838,</span><br><span class="line">  &quot;local_address&quot;:  &quot;127.0.0.1&quot;,</span><br><span class="line">  &quot;local_port&quot;: 1080,</span><br><span class="line">  &quot;password&quot;: &quot;xxxxxx&quot;,</span><br><span class="line">  &quot;timeout&quot;:  600,</span><br><span class="line">  &quot;method&quot;: &quot;aes-256-cfb&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入完毕后，摁下<strong>ESC</strong>，退出插入模式，使用方向键将光标移到最下，英文状态输入<strong><code>:wq</code></strong>，接着回车</p>
+<p>等待，输入<code>ssserver -c /etc/ss-conf.json -d start</code>。</p>
+<h2 id="配置SSR客户端"><a href="#配置SSR客户端" class="headerlink" title="配置SSR客户端"></a>配置SSR客户端</h2><p><strong>Shadowsocks for Windows 客户端下载：</strong><br><a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a></p>
+<p><strong>Shadowsocks for Android 客户端下载：</strong></p>
+<p><a href="https://github.com/shadowsocks/shadowsocks-android/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-android/releases</a></p>
+<p><strong>Shadowsocks for Mac客户端下载：</strong></p>
+<p><a href="https://github.com/shadowsocks/ShadowsocksX-NG/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/ShadowsocksX-NG/releases</a></p>
+<p><strong>Shadowsocks for ios客户端下载：</strong></p>
+<p>切换美区App Store下载<strong>shadowrocket</strong> ，美区账号可向朋友借或者淘宝买一个。</p>
+<p>下载后打开配置页面，<strong>服务器地址</strong>输入你的外部IP地址，也就是刚刚代码中的<code>server</code>一栏内容。</p>
+<p>端口对应<code>sever_port</code>，密码对应<code>password</code>，加密选择<code>aes-256-cfb</code>。点击确定，启用此代理。</p>
+<p>恭喜你，可以享受“墙外的世界”了。</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="github.com/freeleox/freeleox.github.io">Leo</a></p><p> <span>Link:  </span><a href="github.com/freeleox/freeleox.github.io/2018/11/02/Google Cloud SSR/">github.com/freeleox/freeleox.github.io/2018/11/02/Google Cloud SSR/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="/2018/11/01/About me/" title="关于我"><span>NextPost ></span><br><span class="nextTitle">关于我</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#谷歌云免费搭建一年SSR服务器"><span class="toc-number">1.</span> <span class="toc-text">谷歌云免费搭建一年SSR服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#外部IP地址"><span class="toc-number">1.1.</span> <span class="toc-text">外部IP地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建VM实例"><span class="toc-number">1.2.</span> <span class="toc-text">创建VM实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH连接服务器"><span class="toc-number">1.3.</span> <span class="toc-text">SSH连接服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置SSR客户端"><span class="toc-number">1.4.</span> <span class="toc-text">配置SSR客户端</span></a></li></ol></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
