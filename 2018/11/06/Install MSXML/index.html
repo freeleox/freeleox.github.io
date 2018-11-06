@@ -1,0 +1,118 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Leo"><meta name="renderer" content="webkit"><meta name="copyright" content="Leo"><meta name="keywords" content="Leo's Blog"><meta name="description" content="Leo Shaw's Blog, 0511"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Microsoft Office 2010安装需要MSXML版本的解决方法 · Leo Shaw's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><script src="/js/love.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Leo</div><div class="profile-signature">前进或后退都在我怀里</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/moon.jpg);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Leo's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">Microsoft Office 2010安装需要MSXML版本的解决方法</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2018-11-06</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="code"> code</a></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h1 id="Microsoft-Office-2010安装需要MSXML版本的解决方法"><a href="#Microsoft-Office-2010安装需要MSXML版本的解决方法" class="headerlink" title="Microsoft Office 2010安装需要MSXML版本的解决方法"></a>Microsoft Office 2010安装需要MSXML版本的解决方法</h1><p>当卸载了系统自带的office软件再安装后，则会跳出这样的错误提示，本文附下载链接及安装方法。</p>
+<h2 id="下载MSXML"><a href="#下载MSXML" class="headerlink" title="下载MSXML"></a>下载MSXML</h2><ul>
+<li>推荐在官网进行下载，点击<a href="https://www.microsoft.com/zh-CN/download/details.aspx?id=6276" target="_blank" rel="noopener">下载</a>。</li>
+<li>也可以在百度上进行搜索MSXML下载。</li>
+</ul>
+<p>当我们打开官网下载链接后，选择下载，选择版本。</p>
+<p><img src="http://m.qpic.cn/psb?/V11yCWJM1bo1cH/DyVogN5GxHrthDY9zC9dck1Ry7QqGuT4*MSgA3WUenQ!/b/dEgBAAAAAAAA&amp;bo=8QQHAvEEBwIDCSw!&amp;rf=viewer_4" alt="img"></p>
+<p>如图所示，x86代表系统为32位，x64则代表为64位。</p>
+<p>查看电脑系统位数可通过<strong>控制面板</strong>==&gt;<strong>系统</strong>，在<strong>系统类型</strong>查看是多少位操作系统。</p>
+<p>选择相应版本，选择Next进行下载。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>点击下载好的程序，安装后（我这里秒安装成功，所以没截图），随便在某个位置，比如桌面，新建一个记事本。</p>
+<p>右键==&gt;新建==&gt;文本文档</p>
+<p>输入以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT\TypeLib\&#123;F5078F18-C551-11D3-89B9-0000F81FE221&#125;\6.0]@=&quot;Microsoft XML, v6.0&quot;</span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT\TypeLib\&#123;F5078F18-C551-11D3-89B9-0000F81FE221&#125;\6.0\0]@=&quot;&quot;</span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT\TypeLib\&#123;F5078F18-C551-11D3-89B9-0000F81FE221&#125;\6.0\0\win32]@=&quot;C:\\Windows\\System32\\msxml6.dll&quot;</span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT\TypeLib\&#123;F5078F18-C551-11D3-89B9-0000F81FE221&#125;\6.0\FLAGS]@=&quot;0&quot;</span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT\TypeLib\&#123;F5078F18-C551-11D3-89B9-0000F81FE221&#125;\6.0\HELPDIR]@=&quot;C:\\Windows\\System32\&quot;</span><br></pre></td></tr></table></figure>
+<p>将记事本文档保存为<strong>msxml.reg</strong>，弹出改变文件拓展名提示框，点击确定。</p>
+<p>（如果没有弹出，请在文件夹选项中选择<strong>显示文件后缀名</strong>，win7/8/10方法请自行百度搜索）</p>
+<p>双击此文件，点击是。</p>
+<p>然后就可以继续安装office2010啦~</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="github.com/freeleox/freeleox.github.io">Leo</a></p><p> <span>Link:  </span><a href="github.com/freeleox/freeleox.github.io/2018/11/06/Install MSXML/">github.com/freeleox/freeleox.github.io/2018/11/06/Install MSXML/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="/2018/11/02/Google Cloud SSR/" title="谷歌云免费搭建一年SSR服务器"><span>NextPost ></span><br><span class="nextTitle">谷歌云免费搭建一年SSR服务器</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Microsoft-Office-2010安装需要MSXML版本的解决方法"><span class="toc-number">1.</span> <span class="toc-text">Microsoft Office 2010安装需要MSXML版本的解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#下载MSXML"><span class="toc-number">1.1.</span> <span class="toc-text">下载MSXML</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">1.2.</span> <span class="toc-text">安装</span></a></li></ol></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
