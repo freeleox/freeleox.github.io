@@ -1,3 +1,12 @@
+---
+title: Microsoft Office 2010安装需要MSXML版本的解决方法
+date : 2018-11-06
+updated : 2018-11-06
+comments : true
+tags : code
+categories : code
+---
+
 # Microsoft Office 2010安装需要MSXML版本的解决方法
 
 当卸载了系统自带的office软件再安装后，则会跳出这样的错误提示，本文附下载链接及安装方法。
