@@ -1,0 +1,179 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Leo"><meta name="renderer" content="webkit"><meta name="copyright" content="Leo"><meta name="keywords" content="Leo's Blog"><meta name="description" content="Leo Shaw's Blog, 0511"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>关于我 · Leo Shaw's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><script src="/js/love.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Leo</div><div class="profile-signature">前进或后退都在我怀里</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/moon.jpg);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Leo's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1>Leo's Blog</h1><h5>Follow your heart</h5><div class="intro-social"><a class="fa fa-envelope" href="mailto:freeleox@foxmail.com" title="email"></a><a class="fa fa-github" href="//github.com/freeleox" target="_blank" title="github"></a><a class="fa fa-weibo" href="//weibo.com" target="_blank" title="weibo"></a><a class="fa fa-facebook" href="//facebook.com" target="_blank" title="facebook"></a><a class="fa fa-twitter" href="//twitter.com/freeleoxxx" target="_blank" title="twitter"></a><a class="fa fa-rss" href="/atom.xml" target="_blank" title="rss"></a></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article id="page"><h1>关于我</h1><div class="article-container"><h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>欢迎来到我的博客。</p>
+<hr>
+<h2 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h2><p>一个沉迷计算机的网瘾少女</p>
+<p>20岁，金牛座，深圳，大学修外语，自学编程</p>
+<p>人生终极目标是成为一个富婆包养自己想包养的人！！  </p>
+<h2 id="兴趣"><a href="#兴趣" class="headerlink" title="兴趣"></a>兴趣</h2><ul>
+<li><p>游戏</p>
+<ul>
+<li>网游：守望先锋、GTA5、看门狗2、Warframe、剑灵…</li>
+<li>单机：尼尔机械纪元、鬼泣、古墓丽影、模拟人生、黑手党2、刺客信条…</li>
+<li>Switch：塞尔达·旷野之息、煮糊了…</li>
+</ul>
+</li>
+<li><p>追星</p>
+<ul>
+<li>不追男星</li>
+</ul>
+</li>
+<li><p>化妆</p>
+<ul>
+<li>不会换头</li>
+</ul>
+</li>
+<li><p>代码</p>
+<ul>
+<li>中文是最好的语言</li>
+</ul>
+</li>
+<li><p>追剧</p>
+<ul>
+<li>美剧：Lie to me 、神盾局特工、老友记、摩登家庭 </li>
+<li>韩剧：不弱智的我都看</li>
+<li>日剧：名侦探柯南算吗…</li>
+<li>不看国内剧</li>
+</ul>
+</li>
+<li><p>学习</p>
+<ul>
+<li>酷爱学习任何没有卵用的东西</li>
+<li>医学常识</li>
+<li>高效软件</li>
+<li>对英语又爱又恨</li>
+</ul>
+</li>
+</ul>
+<h2 id="社交"><a href="#社交" class="headerlink" title="社交"></a>社交</h2><p>你可以在</p>
+<ul>
+<li><p>QQ</p>
+</li>
+<li><p>微信</p>
+</li>
+<li><p>微博</p>
+</li>
+<li><p>知乎</p>
+</li>
+<li><p>豆瓣</p>
+</li>
+<li><p>Quora</p>
+</li>
+<li><p>Facebook</p>
+</li>
+<li><p><a href="https://github.com/freeleox" target="_blank" rel="noopener">Github</a>  </p>
+</li>
+<li><p><a href="https://twitter.com/freeleoxxx" target="_blank" rel="noopener">Twitter</a></p>
+</li>
+<li><p><a href="https://www.instagram.com/kkkyu418/" target="_blank" rel="noopener">Instagram</a></p>
+</li>
+</ul>
+<p>找不到我</p>
+<h2 id="爱好"><a href="#爱好" class="headerlink" title="爱好"></a>爱好</h2><p>女</p>
+<h2 id="梦想"><a href="#梦想" class="headerlink" title="梦想"></a>梦想</h2><ul>
+<li>经济独立 精神独立 </li>
+<li>做人有爱 做爱有人</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>不热爱生活</p>
+<hr>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>在此致谢<a href="https://github.com/vvliebe" target="_blank" rel="noopener">vvliebe</a>。</p>
+<p>非常感谢他对我在编程上的帮助，受益匪浅。</p>
+<p>这个网站还在慢慢开发更新当中，有任何建议或者意见请给我发邮件：<a href="mailto:freeleox@hotmail.com" target="_blank" rel="noopener">freeleox@hotmail.com</a>  </p>
+</div></article><nav class="cxo-page-nav"></nav></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
