@@ -55,7 +55,7 @@ categories : code
 
 点击**创建**。
 
-规则名字自定义，流量方向选择**出站**，目标选**网络中的所有实例**，来源过滤选择**IP地址范围**，并在下方填写**“0.0.0.0/0”**，然后点击创建。![img](http://m.qpic.cn/psb?/V11yCWJM1bo1cH/LdpQKrZgSqSzVufeXQO*wejvUi7xJASdVGM3Qc4omyE!/b/dDQBAAAAAAAA&bo=rgKuAq4CrgIDCSw!&rf=viewer_4)
+规则名字自定义，流量方向选择**出站**，目标选**网络中的所有实例**，来源过滤选择**IP地址范围**，并在下方填写**“0.0.0.0/0”**，然后点击创建。![img]()
 
 再新建一条规则，方向选择**入站**。其他和出站规则一样。
 
